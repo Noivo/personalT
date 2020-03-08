@@ -1,3 +1,7 @@
-### **Personal Trainer Application**
+###### **Personal Trainer Application**
 
-![HomePage](/client/src/images/Login.png)
+![Login](/client/src/images/Login.png)
+
+![HomePage](/client/src/images/homePage.png)
+
+![CreateExercise](/client/src/images/CreateExercise.png)

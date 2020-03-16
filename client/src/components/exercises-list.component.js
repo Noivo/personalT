@@ -28,7 +28,8 @@ class ExercisesList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      exercises: []
+      exercises: [],
+      loading: true
     }
   }
 
@@ -40,7 +41,8 @@ class ExercisesList extends Component {
       .then(data => data.filter(exercise => exercise.idUser === user.id))
       .then(exercises => {
         this.setState({
-          exercises: exercises
+          exercises: exercises,
+          loading: false
         })
       })
       .catch(error => {
@@ -73,11 +75,10 @@ class ExercisesList extends Component {
     window.location = "/exercises/create"
   }
 
-  render() {
-    return (      
-      <div>
-        <h3>Exercises</h3>
-         {(this.state.exercises && this.state.exercises.length)?
+  printMenu = () => {
+    if (!this.state.loading) {
+      let exercisesExist = this.state.exercises && this.state.exercises.length
+      return exercisesExist ? (
         <table className="table">
           <thead className="thead-light">
             <tr>
@@ -90,7 +91,17 @@ class ExercisesList extends Component {
           </thead>
           <tbody>{this.exerciseList()}</tbody>
         </table>
-        : <h3>No exercises available, please create a new exercise!</h3>}
+      ) : (
+        <h3>No exercises available, please create a new exercise!</h3>
+      )
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <h3>Exercises</h3>
+        {this.printMenu()}
         <div>
           <input
             type="submit"

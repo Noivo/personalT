@@ -41,11 +41,9 @@ class CreateExercise extends Component {
   }
 
   onChangeUsername = e => {
-    console.log("entrei")
     this.setState({
       username: e.target.value
     })
-    console.log(this.state.username)
   }
   onChangeDescription = e => {
     this.setState({
@@ -67,14 +65,19 @@ class CreateExercise extends Component {
     e.preventDefault()
     const { user } = this.props.auth
     const exercise = {
-      username: this.state.username,
+      // Needed to check, because selector dont recognize first option if you don't change
+      username: this.state.username
+        ? this.state.username
+        : this.state.infoClients[0][0],
       description: this.state.description,
       duration: this.state.duration,
       date: this.state.date,
-      // search for the ID with the username
-      idClient: this.state.infoClients.find(
+      // search for the ID with the username, same problem with selector
+      idClient: this.state.infoClients.includes(
         a => a[0] === this.state.username
-      )[1],
+      )
+        ? this.state.infoClients.find(a => a[0] === this.state.username)[1]
+        : this.state.infoClients[0][1],
       idUser: user.id
     }
     console.table(exercise)

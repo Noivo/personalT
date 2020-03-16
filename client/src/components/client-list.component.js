@@ -27,7 +27,8 @@ class ClientList extends Component {
     super(props)
     this.state = {
       clients: [],
-      exercises: []
+      exercises: [],
+      loading: true
     }
   }
 
@@ -39,7 +40,8 @@ class ClientList extends Component {
       .then(data => data.filter(client => client.idUser === user.id))
       .then(clients => {
         this.setState({
-          clients: clients
+          clients: clients,
+          loading: false
         })
       })
       .catch(error => {
@@ -81,7 +83,7 @@ class ClientList extends Component {
     })
   }
 
-  clientList() {
+  clientList = () => {
     return this.state.clients.map(client => {
       return (
         <Client
@@ -98,23 +100,30 @@ class ClientList extends Component {
     window.location = "/clients"
   }
 
+  printMenu = () => {
+    if (!this.state.loading) {
+      let clientsExist = this.state.clients && this.state.clients.length
+      return clientsExist ? (
+        <table className="table">
+          <thead className="thead-light">
+            <tr>
+              <th>Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>{this.clientList()}</tbody>
+        </table>
+      ) : (
+        <h3>No Clients available, please create a new client!</h3>
+      )
+    }
+  }
+
   render() {
     return (
       <div>
         <h3>Clients</h3>
-        {this.state.clients && this.state.clients.length ? (
-          <table className="table">
-            <thead className="thead-light">
-              <tr>
-                <th>Name</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>{this.clientList()}</tbody>
-          </table>
-        ) : (
-          <h3>No Clients available, please create a new client!</h3>
-        )}
+        {this.printMenu()}
         <div>
           <input
             className="btn btn-secondary"

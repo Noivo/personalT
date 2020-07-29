@@ -24,7 +24,8 @@
   "proxy": "http://localhost:5000",
   "scripts": {
     "start": "react-scripts start",
-    "build": "set \"CI= \" react-scripts build",
+    "build": "react-scripts build",
+    "final": "CI= npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -4,7 +4,7 @@ import axios from "axios"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 
-const Client = props => (
+const Client = (props) => (
   <tr>
     <td>{props.clients.name}</td>
     <td>
@@ -28,7 +28,7 @@ class ClientList extends Component {
     this.state = {
       clients: [],
       exercises: [],
-      loading: true
+      loading: true,
     }
   }
 
@@ -36,55 +36,55 @@ class ClientList extends Component {
     const { user } = this.props.auth
     axios
       .get("/api/clients/")
-      .then(response => response.data)
-      .then(data => data.filter(client => client.idUser === user.id))
-      .then(clients => {
+      .then((response) => response.data)
+      .then((data) => data.filter((client) => client.idUser === user.id))
+      .then((clients) => {
         this.setState({
           clients: clients,
-          loading: false
+          loading: false,
         })
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error)
       })
 
     axios
       .get("/api/exercises/")
-      .then(response => {
+      .then((response) => {
         this.setState({
-          exercises: response.data
+          exercises: response.data,
         })
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error)
       })
   }
 
-  deleteClient = id => {
+  deleteClient = (id) => {
     axios
       .delete("/api/clients/" + id)
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err))
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err))
 
     this.setState({
-      clients: this.state.clients.filter(el => el._id !== id)
+      clients: this.state.clients.filter((el) => el._id !== id),
     })
   }
 
   // Recive id from user and delete any exercise related with him
-  deleteExercises = id => {
-    this.state.exercises.map(ex => {
+  deleteExercises = (id) => {
+    this.state.exercises.map((ex) => {
       return (
         ex.idUser === id &&
         axios
           .delete("/api/exercises/" + ex._id)
-          .then(res => console.log(res.data))
+          .then((res) => console.log(res.data))
       )
     })
   }
 
   clientList = () => {
-    return this.state.clients.map(client => {
+    return this.state.clients.map((client) => {
       return (
         <Client
           clients={client}
@@ -97,7 +97,7 @@ class ClientList extends Component {
   }
 
   goCreateClient = () => {
-    window.location = "/clients"
+    window.location = "/clients/create"
   }
 
   printMenu = () => {
@@ -138,10 +138,10 @@ class ClientList extends Component {
 }
 
 ClientList.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 }
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 })
 
 export default connect(mapStateToProps)(ClientList)

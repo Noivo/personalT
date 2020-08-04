@@ -35,8 +35,7 @@ app.use(bodyParser.json())
 
 // DB config
 const db = require("./config/keys").mongoURI
-const MONGODB_URI =
-  "mongodb+srv://User:user123@cluster0.zbq1f.mongodb.net/<dbname>?retryWrites=true&w=majority"
+const MONGODB_URI = require("./config/keys").MONGODB_URI
 mongoose.connect(MONGODB_URI || db, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

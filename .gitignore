@@ -1,2 +1,6 @@
 #dependecies
 /node_modules
+/client/node_modules
+/client/builds
+
+/configs/keys

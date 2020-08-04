@@ -9,7 +9,8 @@
     "client-install": "cd client && npm install",
     "heroku-postbuild": "npm run client-install && npm run build",
     "client": "npm start --prefix /client",
-    "start": "nodemon server.js",
+    "start": "node server.js",
+    "auto": "nodemon server.js",
     "final": "concurrently \"npm run server\" \"npm run client\"",
     "deploy": "npm install --prefix /client && npm run final --prefix /client "
   },

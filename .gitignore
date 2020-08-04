@@ -4,3 +4,6 @@
 /client/builds
 
 /configs/keys
+
+client/public/.DS_Store
+client/.DS_Store

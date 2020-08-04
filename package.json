@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd client && npm run build",
     "client-install": "cd client && npm install",
-    "server": "nodemon server.js",
+    "heroku-postbuild": "npm run client-install && npm run build",
     "client": "npm start --prefix /client",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "nodemon server.js",
+    "final": "concurrently \"npm run server\" \"npm run client\"",
     "deploy": "npm install --prefix /client && npm run final --prefix /client "
   },
   "keywords": [],

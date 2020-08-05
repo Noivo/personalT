@@ -37,7 +37,9 @@ class ClientList extends Component {
     axios
       .get("/api/clients/")
       .then((response) => response.data)
-      .then((data) => data.filter((client) => client.idUser === user.id))
+      .then((data) =>
+        Object.values(data).filter((client) => client.idUser === user.id)
+      )
       .then((clients) => {
         this.setState({
           clients: clients,

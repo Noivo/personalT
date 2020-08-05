@@ -41,6 +41,7 @@ class ClientList extends Component {
         Object.values(data).filter((client) => client.idUser === user.id)
       )
       .then((clients) => {
+        console.log(clients)
         this.setState({
           clients: clients,
           loading: false,

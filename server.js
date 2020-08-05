@@ -16,11 +16,9 @@ const app = express()
 if (process.env.NODE_ENV === "production") {
   // Set static folder
   app.use(express.static("client/build"))
-  app.use("/api/users", users)
-  app.use("/api/exercises", exercises)
-  app.use("/api/clients", clients)
 
-  app.get("*", (req, res) => {
+  app.get("*", (req, res, next) => {
+    if (req.url === "/" || req.url === "/login") return next()
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
   })
 }

@@ -8,10 +8,10 @@
     "build": "cd client && npm run build",
     "client-install": "cd client && npm install",
     "heroku-postbuild": "npm run client-install && npm run build",
-    "client": "npm start --prefix /client",
+    "client": "cd client && npm start",
     "start": "node server.js",
     "auto": "nodemon server.js",
-    "final": "concurrently \"npm run server\" \"npm run client\"",
+    "final": "concurrently \"npm run start\" \"npm run client\"",
     "deploy": "npm install --prefix /client && npm run final --prefix /client "
   },
   "keywords": [],

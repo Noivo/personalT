@@ -16,6 +16,9 @@ const app = express()
 if (process.env.NODE_ENV === "production") {
   // Set static folder
   app.use(express.static("client/build"))
+  app.use("/api/users", users)
+  app.use("/api/exercises", exercises)
+  app.use("/api/clients", clients)
 
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
@@ -45,6 +48,8 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully")
 })
 
+// Routes
+app.use("/api/users", users)
 app.use("/api/exercises", exercises)
 app.use("/api/clients", clients)
 
@@ -52,8 +57,6 @@ app.use("/api/clients", clients)
 app.use(passport.initialize())
 // Passport config
 require("./config/passport")(passport)
-// Routes
-app.use("/api/users", users)
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`)

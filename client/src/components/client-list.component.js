@@ -36,7 +36,10 @@ class ClientList extends Component {
     const { user } = this.props.auth
     axios
       .get("/api/clients/")
-      .then((response) => response.data)
+      .then((response) => {
+        response.data
+        console.log(response.data)
+      })
       .then((data) =>
         Object.values(data).filter((client) => client.idUser === user.id)
       )

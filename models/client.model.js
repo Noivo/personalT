@@ -7,7 +7,10 @@ const clientSchema = new Schema({
     default: "",
     required: true,
   },
-  idUser: ObjectId,
+  idUser: {
+    type: String,
+    default: "",
+  },
 })
 
 module.exports = mongoose.model("Client", clientSchema)

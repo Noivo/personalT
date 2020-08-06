@@ -5,12 +5,9 @@ const clientSchema = new Schema({
   name: {
     type: String,
     default: "",
-    required: true
+    required: true,
   },
-  idUser: {
-    type: String,
-    default: ""
-  }
+  idUser: ObjectId,
 })
 
 module.exports = mongoose.model("Client", clientSchema)

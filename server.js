@@ -11,6 +11,11 @@ const exercises = require("./routes/api/exercises")
 
 require("dotenv").config()
 
+// Routes
+app.use("/api/users", users)
+app.use("/api/exercises", exercises)
+app.use("/api/clients", clients)
+
 const app = express()
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
@@ -44,11 +49,6 @@ const connection = mongoose.connection
 connection.once("open", () => {
   console.log("MongoDB database connection established successfully")
 })
-
-// Routes
-app.use("/api/users", users)
-app.use("/api/exercises", exercises)
-app.use("/api/clients", clients)
 
 // Passport middleware
 app.use(passport.initialize())

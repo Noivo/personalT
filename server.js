@@ -11,11 +11,6 @@ const exercises = require("./routes/api/exercises")
 
 require("dotenv").config()
 
-// Routes
-app.use("/api/users", users)
-app.use("/api/exercises", exercises)
-app.use("/api/clients", clients)
-
 const app = express()
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
@@ -37,6 +32,11 @@ app.use(
   })
 )
 app.use(bodyParser.json())
+
+// Routes
+app.use("/api/users", users)
+app.use("/api/exercises", exercises)
+app.use("/api/clients", clients)
 
 // DB config
 const db = require("./config/keys").mongoURI

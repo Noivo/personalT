@@ -7,18 +7,6 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err))
 })
 
-router.route("/:id").delete((req, res) => {
-  Client.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Client deleted."))
-    .catch((err) => res.status(400).json("Error: " + err))
-})
-
-router.route("/:id").get((req, res) => {
-  Client.findById(req.params.id)
-    .then((client) => res.json(client))
-    .catch((err) => res.status(400).json("Error: " + err))
-})
-
 router.route("/add").post((req, res) => {
   const newClient = new Client({
     name: req.body.name,
@@ -28,6 +16,18 @@ router.route("/add").post((req, res) => {
   newClient
     .save()
     .then(() => res.json("Client added!"))
+    .catch((err) => res.status(400).json("Error: " + err))
+})
+
+router.route("/:id").delete((req, res) => {
+  Client.findByIdAndDelete(req.params.id)
+    .then(() => res.json("Client deleted."))
+    .catch((err) => res.status(400).json("Error: " + err))
+})
+
+router.route("/:id").get((req, res) => {
+  Client.findById(req.params.id)
+    .then((client) => res.json(client))
     .catch((err) => res.status(400).json("Error: " + err))
 })
 

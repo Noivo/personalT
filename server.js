@@ -38,9 +38,9 @@ app.use(
 app.use(bodyParser.json())
 
 // Routes
-app.use("/api/users", users)
-app.use("/api/exercises", exercises)
-app.use("/api/clients", clients)
+// app.use("/api/users", users)
+// app.use("/api/exercises", exercises)
+// app.use("/api/clients", clients)
 
 // DB config
 const db = require("./config/keys").mongoURI

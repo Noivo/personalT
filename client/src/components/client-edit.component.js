@@ -8,54 +8,51 @@ export default class EditClient extends Component {
     this.state = {
       name: "",
       idUser: "",
-      exercises: []
+      exercises: [],
     }
   }
 
   componentDidMount() {
     axios
       .get("/api/clients/" + this.props.match.params.id)
-      .then(res => {
-        console.log(res)
+      .then((res) =>
         this.setState({
           name: res.data.name,
-          idUser: res.data.idUser
+          idUser: res.data.idUser,
         })
-      })
-      .catch(err => console.log(err))
+      )
+      .catch((err) => console.log(err))
 
     //change the name of client on exercises
     axios
       .get("/api/exercises")
-      .then(res => {
+      .then((res) => {
         this.setState({
-          exercises: res.data
+          exercises: res.data,
         })
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err))
   }
 
-  onChangeName = e => {
+  onChangeName = (e) => {
     this.setState({
-      name: e.target.value
+      name: e.target.value,
     })
   }
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault()
 
     const client = {
       name: this.state.name,
-      idUser: this.state.idUser
+      idUser: this.state.idUser,
     }
     axios
       .put("/api/clients/update/" + this.props.match.params.id, client)
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err))
 
     // Change all exercises usernames
-    console.log(this.state.exercises)
-    this.state.exercises.forEach(ex => {
+    this.state.exercises.forEach((ex) => {
       if (ex.idClient === this.props.match.params.id) {
         const exercise = {
           username: this.state.name,
@@ -63,12 +60,12 @@ export default class EditClient extends Component {
           duration: ex.duration,
           date: ex.date,
           idClient: ex.idClient,
-          idUser: ex.idUser
+          idUser: ex.idUser,
         }
         axios
           .put("/api/exercises/update/" + ex._id, exercise)
-          .then(res => console.log(res))
-          .catch(err => console.log(err))
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err))
       }
     })
 

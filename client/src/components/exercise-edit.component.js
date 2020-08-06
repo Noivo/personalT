@@ -14,67 +14,69 @@ export default class EditExercise extends Component {
       date: new Date(),
       idClient: "",
       users: [],
-      infoClients: []
+      infoClients: [],
     }
   }
 
   componentDidMount() {
-    console.log("Entrei")
     axios
       .get("/api/exercises/" + this.props.match.params.id)
-      .then(response => {
+      .then((response) => {
         this.setState({
           username: response.data.username,
           description: response.data.description,
           duration: response.data.duration,
           date: new Date(response.data.date),
           idClient: response.data.idClient,
-          idUser: response.data.idUser
+          idUser: response.data.idUser,
         })
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error)
       })
 
     axios
       .get("/api/clients/")
-      .then(response => {
+      .then((response) => {
         if (response.data.length > 0) {
           this.setState({
-            infoClients: response.data.map(client => [client.name, client._id])
+            infoClients: response.data.map((client) => [
+              client.name,
+              client._id,
+            ]),
           })
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error)
       })
   }
 
-  onChangeUsername = e => {
+  onChangeUsername = (e) => {
     this.setState({
-      username: e.target.value
+      username: e.target.value,
     })
   }
 
-  onChangeDescription = e => {
+  onChangeDescription = (e) => {
     this.setState({
-      description: e.target.value
+      description: e.target.value,
     })
   }
 
-  onChangeDuration = e => {
+  onChangeDuration = (e) => {
     this.setState({
-      duration: e.target.value
+      duration: e.target.value,
     })
   }
 
-  onChangeDate = date => {
+  onChangeDate = (date) => {
     this.setState({
-      date: date
+      date: date,
     })
   }
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault()
 
     const exercise = {
@@ -83,15 +85,15 @@ export default class EditExercise extends Component {
       duration: this.state.duration,
       date: this.state.date,
       idClient: this.state.infoClients.find(
-        a => a[0] === this.state.username
+        (a) => a[0] === this.state.username
       )[1],
-      idUser: this.state.idUser
+      idUser: this.state.idUser,
     }
 
     axios
       .put("/api/exercises/update/" + this.props.match.params.id, exercise)
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
 
     window.location = "/exercises"
   }
@@ -110,7 +112,7 @@ export default class EditExercise extends Component {
               value={this.state.username}
               onChange={this.onChangeUsername}
             >
-              {this.state.infoClients.map(client => {
+              {this.state.infoClients.map((client) => {
                 return (
                   <option key={client[1]} value={client[0]}>
                     {client[0]}

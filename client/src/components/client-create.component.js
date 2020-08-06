@@ -9,25 +9,24 @@ class CreateClient extends Component {
 
     this.state = {
       name: "",
-      idUser: ""
+      idUser: "",
     }
   }
 
-  onChangeName = e => {
+  onChangeName = (e) => {
     this.setState({
-      name: e.target.value
+      name: e.target.value,
     })
   }
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault()
     const { user } = this.props.auth
     const client = {
       name: this.state.name,
-      idUser: user.id
+      idUser: user.id,
     }
-    console.log("cliente", client)
-    axios.post("/api/clients/add", client).then(res => console.log(res)).catch(err => console.log(err))
+    axios.post("/api/clients/add", client).catch((err) => console.log(err))
 
     window.location = "/clients"
   }
@@ -61,10 +60,10 @@ class CreateClient extends Component {
 }
 
 CreateClient.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 }
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 })
 
 export default connect(mapStateToProps)(CreateClient)

@@ -17,7 +17,7 @@ class CreateExercise extends Component {
       idClient: "",
       infoClients: [],
       clientsName: [],
-      idUser: ""
+      idUser: "",
     }
   }
 
@@ -25,14 +25,14 @@ class CreateExercise extends Component {
     const { user } = this.props.auth
     axios
       .get("/api/clients/")
-      .then(response => response.data)
-      .then(data => data.filter(clients => clients.idUser === user.id))
-      .then(clients => {
+      .then((response) => response.data)
+      .then((data) => data.filter((clients) => clients.idUser === user.id))
+      .then((clients) => {
         if (clients[0] !== undefined) {
           this.setState({
             username: clients[0].username,
             // save the username with ID
-            infoClients: clients.map(client => [client.name, client._id])
+            infoClients: clients.map((client) => [client.name, client._id]),
           })
         } else {
           window.location = "/clients/create"
@@ -40,28 +40,28 @@ class CreateExercise extends Component {
       })
   }
 
-  onChangeUsername = e => {
+  onChangeUsername = (e) => {
     this.setState({
-      username: e.target.value
+      username: e.target.value,
     })
   }
-  onChangeDescription = e => {
+  onChangeDescription = (e) => {
     this.setState({
-      description: e.target.value
+      description: e.target.value,
     })
   }
-  onChangeDuration = e => {
+  onChangeDuration = (e) => {
     this.setState({
-      duration: e.target.value
+      duration: e.target.value,
     })
   }
-  onChangeDate = date => {
+  onChangeDate = (date) => {
     this.setState({
-      date: date
+      date: date,
     })
   }
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault()
     const { user } = this.props.auth
     const exercise = {
@@ -74,18 +74,14 @@ class CreateExercise extends Component {
       date: this.state.date,
       // search for the ID with the username, same problem with selector
       idClient: this.state.infoClients.includes(
-        a => a[0] === this.state.username
+        (a) => a[0] === this.state.username
       )
-        ? this.state.infoClients.find(a => a[0] === this.state.username)[1]
+        ? this.state.infoClients.find((a) => a[0] === this.state.username)[1]
         : this.state.infoClients[0][1],
-      idUser: user.id
+      idUser: user.id,
     }
-    console.table(exercise)
-    console.log(exercise)
-    axios
-      .post("/api/exercises/add", exercise)
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
+
+    axios.post("/api/exercises/add", exercise).catch((err) => console.log(err))
     window.location = "/exercises"
   }
 
@@ -107,7 +103,7 @@ class CreateExercise extends Component {
               value={this.state.username}
               onChange={this.onChangeUsername}
             >
-              {this.state.infoClients.map(client => {
+              {this.state.infoClients.map((client) => {
                 return (
                   <option key={client[1]} value={client[0]}>
                     {client[0]}
@@ -159,10 +155,10 @@ class CreateExercise extends Component {
 }
 
 CreateExercise.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 }
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 })
 
 export default connect(mapStateToProps)(CreateExercise)

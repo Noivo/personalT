@@ -36,13 +36,11 @@ class ClientList extends Component {
     const { user } = this.props.auth
     axios
       .get("/api/clients/")
-      .then((response) => console.log(response))
       .then((response) => response.data)
       .then((data) =>
         Object.values(data).filter((client) => client.idUser === user.id)
       )
       .then((clients) => {
-        console.log(clients)
         this.setState({
           clients: clients,
           loading: false,
@@ -59,16 +57,11 @@ class ClientList extends Component {
           exercises: response.data,
         })
       })
-      .catch((error) => {
-        console.log(error)
-      })
+      .catch((error) => console.log(error))
   }
 
   deleteClient = (id) => {
-    axios
-      .delete("/api/clients/" + id)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err))
+    axios.delete("/api/clients/" + id).catch((err) => console.log(err))
 
     this.setState({
       clients: this.state.clients.filter((el) => el._id !== id),
@@ -82,7 +75,7 @@ class ClientList extends Component {
         ex.idUser === id &&
         axios
           .delete("/api/exercises/" + ex._id)
-          .then((res) => console.log(res.data))
+          .catch((error) => console.log(error))
       )
     })
   }

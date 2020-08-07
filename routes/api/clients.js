@@ -21,10 +21,7 @@ router.route("/add").post((req, res) => {
 
   newClient
     .save()
-    .then(() => {
-      res.json("Client added!")
-      res.status(200)
-    })
+    .then(() => res.json("Client added!"))
     .catch((err) => res.status(400).json("Error: " + err))
 })
 

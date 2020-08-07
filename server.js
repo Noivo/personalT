@@ -12,6 +12,17 @@ const exercises = require("./routes/api/exercises")
 require("dotenv").config()
 
 const app = express()
+const port = process.env.PORT || 5000
+app.use(cors())
+
+// Bodyparser middleware
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  })
+)
+app.use(bodyParser.json())
+
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
@@ -25,17 +36,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
   })
 }
-
-const port = process.env.PORT || 5000
-app.use(cors())
-
-// Bodyparser middleware
-app.use(
-  bodyParser.urlencoded({
-    extended: false,
-  })
-)
-app.use(bodyParser.json())
 
 // Routes
 // app.use("/api/users", users)

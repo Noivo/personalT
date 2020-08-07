@@ -26,7 +26,7 @@ class CreateClient extends Component {
       name: this.state.name,
       idUser: user.id,
     }
-    axios.post("/api/clients/add", client).catch((err) => console.log(err))
+    axios.post("/api/clients/post/add", client).catch((err) => console.log(err))
 
     window.location = "/clients"
   }

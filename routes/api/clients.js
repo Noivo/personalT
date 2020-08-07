@@ -1,7 +1,7 @@
 const router = require("express").Router()
 let Client = require("../../models/client.model")
 
-router.route("/post/add").post((req, res) => {
+router.route("/add").post((req, res) => {
   const newClient = new Client({
     name: req.body.name,
     idUser: req.body.idUser,

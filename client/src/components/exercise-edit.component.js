@@ -155,7 +155,7 @@ class EditExercise extends Component {
           <div className="form-group">
             <input
               type="submit"
-              value="Edit Exercise Log"
+              value="Edit Exercise"
               className="btn btn-secondary"
             />
           </div>

@@ -2,8 +2,10 @@ import React, { Component } from "react"
 import axios from "axios"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+import { connect } from "react-redux"
+import PropTypes from "prop-types"
 
-export default class EditExercise extends Component {
+class EditExercise extends Component {
   constructor(props) {
     super(props)
 
@@ -19,6 +21,7 @@ export default class EditExercise extends Component {
   }
 
   componentDidMount() {
+    const { user } = this.props.auth
     axios
       .get("/api/exercises/" + this.props.match.params.id)
       .then((response) => {
@@ -37,13 +40,12 @@ export default class EditExercise extends Component {
 
     axios
       .get("/api/clients/")
-      .then((response) => {
-        if (response.data.length > 0) {
+      .then((response) => response.data)
+      .then((data) => data.filter((clients) => clients.idUser === user.id))
+      .then((clients) => {
+        if (clients.length > 0) {
           this.setState({
-            infoClients: response.data.map((client) => [
-              client.name,
-              client._id,
-            ]),
+            infoClients: clients.map((client) => [client.name, client._id]),
           })
         }
       })
@@ -162,3 +164,12 @@ export default class EditExercise extends Component {
     )
   }
 }
+
+EditExercise.propTypes = {
+  auth: PropTypes.object.isRequired,
+}
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+})
+
+export default connect(mapStateToProps)(EditExercise)
